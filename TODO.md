@@ -176,8 +176,9 @@ git init
 
 ### 2. **Update project names**:
 
-- `app.json` → `name`, `slug`, `version`, `bundleIdentifier`, `package`
-- `package.json` → `name`, `version`
+- `app.json` → `name`, `slug`, `version: 1.0.0`, `bundleIdentifier`, `package`
+- `package.json` → `name`, `version: 1.0.0`
+- `package.json` → `main: node_modules/expo/AppEntry.js`
 
 ### 3. **Update `.env`** with your API base URL
 
@@ -186,7 +187,7 @@ git init
 EXPO_PUBLIC_API_URL=https://example.com/api/v1
 ```
 
-### 4. **Update `env.ts`** with your API base URL
+### 4. **Update `env.ts`** with:
 
 ```
 // env.ts (ignored in Git)
@@ -194,7 +195,7 @@ export const API_URL = process.env.EXPO_PUBLIC_API_URL!;
 
 ```
 
-### 5. **Update `babel.config.js`** with your API base URL
+### 5. **Update `babel.config.js`** with:
 
 ```
  // babel.config.js
@@ -238,7 +239,7 @@ export const API_URL = process.env.EXPO_PUBLIC_API_URL!;
 }
 ```
 
-### 6. **Update `tsconfig.json`** with your API base URL
+### 6. **Update `tsconfig.json`** with:
 
 ```
 // tsconfig.json
@@ -288,6 +289,26 @@ npx expo start
 
 ### 8. **Replace example screens & services** with your own.
 
+### 9. **Add or Update `App.tsx`** with"
+
+```
+// App.tsx
+import { LoadApp } from '@navigation'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
+const queryClient = new QueryClient()
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <LoadApp />
+      </GestureHandlerRootView>
+    </QueryClientProvider>
+  )
+}
+```
+
 ## 🧠 Recommendations
 
 - Use `Zustand` for state or replace with Redux Toolkit if needed.
@@ -297,8 +318,10 @@ npx expo start
 ---
 
 ## Install dependencies
+
 ```bash
   npm install zustand axios dayjs react-hook-form yup react-native-screens react-native-safe-area-context react-navigation @react-navigation/native-stack react-query
   npm install -D eslint prettier husky lint-staged
 ```
+
 Happy Building 🚀

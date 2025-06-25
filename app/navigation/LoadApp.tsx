@@ -3,7 +3,6 @@ import { useTheme } from '@constants'
 import { NavigationContainer } from '@react-navigation/native'
 import { useAppStore } from '@store'
 import { StatusBar } from 'expo-status-bar'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import RootNavigator from './AppNavigator'
@@ -21,19 +20,17 @@ export default function LoadApp() {
   }))
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <Animated.View style={statusBarBackground} />
-          <StatusBar
-            style={isDarkMode ? 'light' : 'dark'}
-            animated={true}
-            translucent
-          />
-          {isAuthenticated ? <RootNavigator /> : <AuthNavigator />}
-          <Toaster />
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </GestureHandlerRootView>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <Animated.View style={statusBarBackground} />
+        <StatusBar
+          style={isDarkMode ? 'light' : 'dark'}
+          animated={true}
+          translucent
+        />
+        {isAuthenticated ? <RootNavigator /> : <AuthNavigator />}
+        <Toaster />
+      </SafeAreaProvider>
+    </NavigationContainer>
   )
 }
