@@ -296,9 +296,9 @@ npx expo start
 
 ---
 
-Happy Building 🚀
-
+## Install dependencies
 ```bash
   npm install zustand axios dayjs react-hook-form yup react-native-screens react-native-safe-area-context react-navigation @react-navigation/native-stack react-query
   npm install -D eslint prettier husky lint-staged
 ```
+Happy Building 🚀
