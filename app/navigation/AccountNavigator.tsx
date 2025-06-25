@@ -7,10 +7,9 @@ import {
   FAndQ,
   HelpSupport,
   MailUs,
-  NotificationSettings,
   Profile,
   Security,
-} from '@screens'
+} from '@features'
 
 const { Navigator, Screen } = createNativeStackNavigator<AccountRoutes>()
 
@@ -22,7 +21,6 @@ export default function AccountNavigator() {
         headerShown: false,
       }}
     >
-      <Screen name='NotificationSettings' component={NotificationSettings} />
       <Screen name='ChangePassword' component={ChangePassword} />
       <Screen name='AccountEntry' component={AccountScreen} />
       <Screen name='HelpSupport' component={HelpSupport} />

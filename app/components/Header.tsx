@@ -19,8 +19,8 @@ interface IHeader {
 }
 
 export default function Header({
-  leftAdornment = null,
-  rightAdornment = null,
+  leftAdornment,
+  rightAdornment,
   hideGoBack,
   title,
 }: IHeader) {
@@ -41,19 +41,19 @@ export default function Header({
         } as ViewStyle,
       ]}
     >
-      {showNav || leftAdornment ? (
+      {leftAdornment ? (
+        leftAdornment
+      ) : showNav ? (
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{ paddingHorizontal: 10 }}
         >
-          {leftAdornment ?? (
-            <Icon
-              color={colors.text}
-              name='chevron-left'
-              variant='Entypo'
-              size={25}
-            />
-          )}
+          <Icon
+            color={colors.text}
+            name='chevron-left'
+            variant='Entypo'
+            size={25}
+          />
         </TouchableOpacity>
       ) : (
         <IView style={{ width: 30 }} />

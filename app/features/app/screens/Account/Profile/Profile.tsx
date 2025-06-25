@@ -22,20 +22,12 @@ export default function Profile({
 
   const data = [
     {
-      label: 'Bio',
-      value: user?.bio,
-    },
-    {
       label: 'First Name',
       value: user?.firstName,
     },
     {
       label: 'Last Name',
       value: user?.lastName,
-    },
-    {
-      label: 'Display Name',
-      value: `${user?.firstName} ${user?.lastName}`,
     },
     {
       label: 'Email',

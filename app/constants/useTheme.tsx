@@ -1,5 +1,6 @@
 // hooks/useTheme.ts
-import { useAppStore } from '@store'
+
+import { useStore } from '@store'
 import { useEffect } from 'react'
 import {
   interpolateColor,
@@ -26,7 +27,7 @@ const darkTheme = {
 export const duration = 500
 
 export default function useTheme() {
-  const { isDarkMode } = useAppStore()
+  const { isDarkMode } = useStore()
   const progress = useSharedValue(isDarkMode ? 1 : 0)
 
   useEffect(() => {

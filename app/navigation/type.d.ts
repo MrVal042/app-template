@@ -5,7 +5,6 @@ type AuthRoutes = {
   ResetPassword: undefined
   Onboard: undefined
   VerifyClaim: { email: string }
-  Demography: undefined
   Welcome: undefined
 }
 

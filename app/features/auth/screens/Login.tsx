@@ -1,20 +1,14 @@
 import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-  Platform,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
 
 import { BgImage, Divider, FormField, IButton, IText } from '@components'
+import { IColors } from '@constants'
 import { users } from '@data'
 import { useApp } from '@hooks'
 import { StackNavigationProps } from '@navigation'
-import { IColors } from '@constants'
 import { ActionNote, AuthContainer } from '../components'
-import { loginData, loginForm, loginValues } from '../store/data'
+import { loginData, loginForm, loginValues } from '../data'
 
 export default function Login({
   navigation,
@@ -88,7 +82,7 @@ export default function Login({
           <ActionNote
             actionText='Signup'
             label="Don't have account?"
-            onPress={() => navigation.navigate('Signup', { role: Role.Buyer })}
+            onPress={() => navigation.navigate('Signup')}
           />
           <Divider />
         </View>

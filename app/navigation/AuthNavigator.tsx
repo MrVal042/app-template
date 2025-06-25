@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import {
-  Demography,
   ForgotPassword,
   Login,
   Onboard,
@@ -9,7 +8,7 @@ import {
   Signup,
   VerifyClaim,
   Welcome,
-} from '@screens'
+} from '@features'
 
 import { useApp } from '@hooks'
 
@@ -32,7 +31,6 @@ export default function RootNavigator() {
       <Screen name='Login' component={Login} options={{ headerShown: false }} />
       <Screen name='ForgotPassword' component={ForgotPassword} />
       <Screen name='Onboard' component={Onboard} />
-      <Screen name='Demography' component={Demography} />
       <Screen name='ResetPassword' component={ResetPassword} />
       <Screen name='Signup' component={Signup} />
       <Screen name='Welcome' component={Welcome} />

@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-type stateKey = 'isNewUser' | 'isRegistered' | 'autoLogin'
+type stateKey = 'isNewUser' | 'isRegistered' | 'autoLogin' | 'isDarkMode'
 type ToasterVariant = 'info' | 'warning' | 'error' | 'success'
 type IToaster = {
   message: string
@@ -15,22 +15,29 @@ type AppState = {
   user: UserInfo | null
   isRegistered: boolean
   isNewUser: boolean
+  autoLogin: boolean
+  isDarkMode: boolean
   logout: () => void
   toaster: IToaster | null
   login: (user: UserInfo) => void
-  setToast: (key: IToaster | null) => void
+  setUser: (user: UserInfo) => void
   toggleState: (key: stateKey) => void
+  setToast: (key: IToaster | null) => void
 }
 
-const useAuthStore = create<AppState>()(
+const useStore = create<AppState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       user: null,
       toaster: null,
+      autoLogin: false,
       isNewUser: false,
       isRegistered: false,
       isDarkMode: Platform.OS === 'ios',
+
       login: (user) => set({ user }),
+
+      setUser: (user) => set({ user }),
 
       setToast: (key) => set(() => ({ toaster: key })),
 
@@ -39,8 +46,8 @@ const useAuthStore = create<AppState>()(
       logout: () =>
         set({
           user: null,
+          autoLogin: false,
           isDarkMode: Platform.OS === 'ios',
-          wishList: [],
         }),
     }),
     {
@@ -53,4 +60,4 @@ const useAuthStore = create<AppState>()(
   )
 )
 
-export default useAuthStore
+export default useStore

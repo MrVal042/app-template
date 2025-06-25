@@ -1,6 +1,6 @@
 import { Icon, IconProps, IText, shadowStyles } from '@components'
 import { scale, useTheme } from '@constants'
-import { useAppStore } from '@store'
+import { useStore } from '@store'
 import { useEffect } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Animated, {
@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Toaster() {
   const { top } = useSafeAreaInsets()
-  const { toaster, setToast } = useAppStore()
+  const { toaster, setToast } = useStore()
   const { colors, isDarkMode } = useTheme()
 
   const translateY = useSharedValue(-100)

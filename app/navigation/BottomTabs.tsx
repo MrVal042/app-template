@@ -1,20 +1,12 @@
 import { Icon, IconProps } from '@components'
+import { AccountScreen, Explore, HomeScreen } from '@features'
 import { useApp } from '@hooks'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import {
-  AccountScreen,
-  AddListScreen,
-  Explore,
-  ForSaleScreen,
-  HomeScreen,
-  Wishlist,
-} from '@screens'
-import { Role } from '@utils'
 
-const { Navigator, Screen, Group } = createBottomTabNavigator<TabRoutes>()
+const { Navigator, Screen } = createBottomTabNavigator<TabRoutes>()
 
 const BottomTabs = () => {
-  const { colors, user } = useApp()
+  const { colors } = useApp()
 
   return (
     <Navigator

@@ -13,8 +13,8 @@ import { useForm } from 'react-hook-form'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 
 const defaultValues = {
-  bio: '',
-  displayName: '',
+  lastName: '',
+  firstName: '',
   phoneNumber: '',
 }
 
@@ -37,17 +37,17 @@ export default function EditProfile({
 
   const data: FormData[] = [
     {
-      label: 'Bio',
-      value: user?.bio,
-      name: 'bio',
+      label: 'Last Name',
+      value: user?.lastName,
+      name: 'lastName',
     },
     {
-      label: 'Display Name',
-      value: `${user?.firstName} ${user?.lastName}`,
-      name: 'displayName',
+      label: 'First Name',
+      value: user?.firstName,
+      name: 'lastName',
     },
     {
-      label: 'PhoneNumber',
+      label: 'Phone Number',
       value: user?.phoneNumber,
       name: 'phoneNumber',
     },

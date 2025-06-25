@@ -9,7 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 export interface StackNavigationProps<
   ParamList extends ParamListBase,
-  RouteName extends keyof ParamList = string
+  RouteName extends keyof ParamList = string,
 > {
   navigation: NativeStackNavigationProp<ParamList, RouteName>
   route: RouteProp<ParamList, RouteName>
@@ -18,7 +18,7 @@ export interface StackNavigationProps<
 export interface RootNavigationProp<
   ParentParamList extends ParamListBase,
   ParamList extends ParamListBase,
-  RouteName extends keyof ParamList = string
+  RouteName extends keyof ParamList = string,
 > {
   navigation: CompositeNavigationProp<
     NativeStackNavigationProp<ParamList, Extract<RouteName, string>>,
@@ -30,7 +30,7 @@ export interface RootNavigationProp<
 export type useRootNavigationProp<
   ParentParamList extends ParamListBase,
   ParamList extends ParamListBase,
-  RouteName extends keyof ParamList
+  RouteName extends keyof ParamList,
 > = CompositeNavigationProp<
   NativeStackNavigationProp<ParamList, Extract<RouteName, string>>,
   NativeStackNavigationProp<ParentParamList, Extract<RouteName, string>>
@@ -38,19 +38,14 @@ export type useRootNavigationProp<
 
 export type useStackNavigationProp<
   ParamList extends ParamListBase,
-  RouteName extends keyof ParamList
+  RouteName extends keyof ParamList,
 > = NativeStackNavigationProp<ParamList, RouteName>
 
 // AppRoute /////////////////////////////////////////////////////
 export type AppRoute = {
-  RecentlyViewed: undefined
-  FeaturedProperty: undefined
-  FilterList: { items?: IPropertyProps[] }
   Tabs: NavigatorScreenParams<TabRoutes>
   AccountNavigator: NavigatorScreenParams<AccountRoutes>
-  ListNavigator: NavigatorScreenParams<ListRoutes>
   AuthNavigator: NavigatorScreenParams<AuthRoutes>
-  ChatNavigator: NavigatorScreenParams<ChatRoutes>
   NotificationNavigator: NavigatorScreenParams<NotificationRoutes>
 }
 

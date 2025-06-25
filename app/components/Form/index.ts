@@ -1,7 +1,6 @@
 export * from './Dropdown'
 export { default as FormField } from './FormField'
 export { default as FormInput } from './FormInput'
-export { default as ImagePicker } from './ImagePicker'
 export { default as OtpField } from './OtpField'
 export { default as SearchField } from './SearchField'
 export * from './validators'

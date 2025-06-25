@@ -1,7 +1,6 @@
-import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
-import { Icon, IText, RootContainer, IButton } from '@components'
+import { Icon, IText, RootContainer } from '@components'
 import { IColors } from '@constants'
 import { useApp } from '@hooks'
 
@@ -13,13 +12,17 @@ export default function HomeScreen() {
   return (
     <RootContainer
       leftAdornment={
-        <View style={styles.avatar}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.avatar}
+          onPress={() => navigation.navigate('Tabs', { screen: 'Account' })}
+        >
           <Icon
             name={isDarkMode ? 'user-circle' : 'user-circle-o'}
             color={colors.text}
             size={avatarSize}
           />
-        </View>
+        </TouchableOpacity>
       }
       rightAdornment={
         <TouchableOpacity>
@@ -27,13 +30,11 @@ export default function HomeScreen() {
         </TouchableOpacity>
       }
     >
-      <IText textAlign='left' variant='title' size={18}>
-        Welcome to HomeScreen
-      </IText>
-      <IButton
-        label='Go account'
-        onPress={() => navigation.navigate('Tabs', { screen: 'Account' })}
-      />
+      <View style={styles.container}>
+        <IText textAlign='left' variant='title' size={18}>
+          Welcome to HomeScreen
+        </IText>
+      </View>
     </RootContainer>
   )
 }
@@ -43,5 +44,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     borderColor: IColors.text,
     borderRadius: avatarSize / 2,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
   },
 })

@@ -1,5 +1,5 @@
-import { images } from '@assets'
 import { height, width } from '@constants'
+import { images } from 'assets'
 import { ImageBackground } from 'expo-image'
 import React from 'react'
 import { StyleSheet } from 'react-native'
@@ -11,15 +11,15 @@ type IProps = {
 export default function ImageBg({ children }: IProps) {
   return (
     <ImageBackground
-      source={images.logo}
-      style={styles.BgImg}
-      contentFit='contain'
-      imageStyle={{ opacity: 0.2 }}
-      blurRadius={10}
+      accessibilityHint='Background image for the auth or form screen'
       accessibilityLabel='Login Background'
+      imageStyle={{ opacity: 0.2 }}
       accessibilityRole='image'
-      accessibilityHint='Background image for the login screen'
+      contentFit='contain'
+      style={styles.BgImg}
+      source={images.logo}
       accessible={true}
+      blurRadius={10}
     >
       {children}
     </ImageBackground>

@@ -1,6 +1,6 @@
-import { images } from '@assets'
 import { IColors } from '@constants'
 import { useApp } from '@hooks'
+import { images } from 'assets'
 import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
 import { IView } from './Element'

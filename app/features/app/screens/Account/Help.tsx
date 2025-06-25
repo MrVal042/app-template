@@ -1,6 +1,6 @@
 import { Divider, Icon, IconProps, IText, RootContainer } from '@components'
+import { IColors, useTheme } from '@constants'
 import { StackNavigationProps } from '@navigation'
-import { IColors } from '@contants'
 import {
   FlatList,
   Linking,
@@ -16,6 +16,7 @@ const AnimatedTouchableOpacity =
 export default function Help({
   navigation,
 }: StackNavigationProps<AccountRoutes, 'HelpSupport'>) {
+  const { rCard } = useTheme()
   const handlePress = async (url: string) => {
     if (url) {
       try {

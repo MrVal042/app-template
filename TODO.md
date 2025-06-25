@@ -17,7 +17,7 @@ This is a **production-ready boilerplate** for building scalable React Native ap
 
 ## 📁 Folder Structure
 
-````
+```bash
 project-root/
   ├── app/
   │  ├── assets/          # Fonts, images, etc.
@@ -161,87 +161,127 @@ project-root/
   ├── .env                    # Environment variables
   ├── env.ts                  # Environment variables
   └── types/                  # Shared types/interfaces
-    ```
+```
 
-## 🔄 Reuse Instructions
+# 🔄 Reuse Instructions
 
-### 1. **Clone the repo** or copy folder:
+## 1. **Clone the repo** or copy folder:
 
 ```bash
-git clone https://github.com/mrval042/Boilerplate/new-project
+# bash
+
+# 1. Create and switch to a new branch
+git checkout -b addStructure
+
+# 2. Clone the boilerplate repository
+git clone https://github.com/mrval042/Boilerplate.git new-project
+
+# 3. Move into the cloned folder
 cd new-project
+
+# 4. Remove .git to prevent repo conflicts
 rm -rf .git
-git init
-````
 
-### 2. **Update project names**:
+# 5. Move required files to parent directory
+mv app ../ && mv assets ../ &&  mv .env ../ && mv App.tsx ../ && mv babel.config.js ../ && mv env.d.ts ../ && mv eslint.config.js ../ && mv TODO.md ../ && mv tsconfig.json ../
 
-- `app.json` → `name`, `slug`, `version: 1.0.0`, `bundleIdentifier`, `package`
-- `package.json` → `name`, `version: 1.0.0`
+# 6. Go back to parent folder
+cd ..
+
+# 7. Remove the cloned boilerplate folder
+rm -rf new-project
+
+# 8. Add TODO.md, .env, and env.d.ts to .gitignore (if not already there)
+touch .gitignore
+for f in TODO.md .env env.d.ts; do grep -qxF "$f" .gitignore || echo "$f" >> .gitignore; done
+
+# 9. Install dependencies
+npm install zustand axios dayjs react-hook-form yup \
+  react-native-screens react-native-safe-area-context \
+  @react-navigation/native @react-navigation/native-stack \
+  @react-navigation/bottom-tabs @gorhom/bottom-sheet \
+  react-native-modal-datetime-picker react-native-otp-entry \
+  expo-secure-store @react-native-async-storage/async-storage \
+  react-native-dotenv @tanstack/react-query
+
+# 10. Install dev dependencies
+npm install -D eslint prettier husky lint-staged
+npm install --save-dev babel-plugin-module-resolver
+npm install --save-dev babel-plugin-dotenv-import
+npm install eslint-import-resolver-babel-module --save-dev
+
+
+# 11. Check for file changes
+git status
+
+# 12. Stage all changes
+git add .
+
+# 13. Commit the changes
+git commit -m "Initial project setup with app structure"
+
+# 14. Push changes to remote (assumes remote `origin` is already set)
+git push -u origin addStructure
+
+# 15. Confirm status
+git status
+
+# 16. Check for TypeScript errors
+tsc
+
+```
+
+## 2. **Update project names**:
+
 - `package.json` → `main: node_modules/expo/AppEntry.js`
 
-### 3. **Update `.env`** with your API base URL
+## 3. **Add or Update `babel.config.js`** with:
 
-```
-// .env (ignored in Git)
-EXPO_PUBLIC_API_URL=https://example.com/api/v1
-```
-
-### 4. **Update `env.ts`** with:
-
-```
-// env.ts (ignored in Git)
-export const API_URL = process.env.EXPO_PUBLIC_API_URL!;
-
-```
-
-### 5. **Update `babel.config.js`** with:
-
-```
- // babel.config.js
- module.exports = function (api) {
-   api.cache(true)
-   return {
-     presets: ['babel-preset-expo'],
-     plugins: [
-       'react-native-reanimated/plugin',
-       [
-         'module-resolver',
-         {
-           alias: {
-             '@navigation': './app/navigation',
-             '@components': './app/components',
-             '@constants': './app/constants',
-             '@services': './app/services',
-             '@features': './app/features',
-             '@screens': './app/screens',
-             '@control': './app/control',
-             '@assets': './app/assets',
-             '@hooks': './app/hooks',
-             '@store': './app/store',
-             '@data': './app/data',
-             '@utils': ['./utils'],
-           },
-           extensions: ['.js', '.jsx', '.ts', '.tsx'],
-         },
-       ],
-       [
-         'dotenv-import',
-         {
-           moduleName: '@env',
-           path: '.env',
-           safe: false,
-           allowUndefined: true,
-         },
-       ],
-     ],
-   }
+```ts
+// babel.config.js
+module.exports = function (api) {
+  api.cache(true)
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: [
+      'react-native-reanimated/plugin',
+      [
+        'module-resolver',
+        {
+          alias: {
+            '@navigation': './app/navigation',
+            '@components': './app/components',
+            '@constants': './app/constants',
+            '@services': './app/services',
+            '@features': './app/features',
+            '@screens': './app/screens',
+            '@control': './app/control',
+            '@assets': './app/assets',
+            '@hooks': './app/hooks',
+            '@store': './app/store',
+            '@data': './app/data',
+            '@utils': ['./utils'],
+          },
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      ],
+      [
+        'dotenv-import',
+        {
+          moduleName: '@env',
+          path: '.env',
+          safe: false,
+          allowUndefined: true,
+        },
+      ],
+    ],
+  }
 }
 ```
 
-### 6. **Update `tsconfig.json`** with:
+## 4. **Update `tsconfig.json`** with:
 
-```
+```ts
 // tsconfig.json
 {
   "extends": "expo/tsconfig.base",
@@ -280,18 +320,9 @@ export const API_URL = process.env.EXPO_PUBLIC_API_URL!;
 }
 ```
 
-### 7. **Run the app**:
+## 5. **Add or Update `App.tsx`** with"
 
-```bash
-npm install
-npx expo start
-```
-
-### 8. **Replace example screens & services** with your own.
-
-### 9. **Add or Update `App.tsx`** with"
-
-```
+```ts
 // App.tsx
 import { LoadApp } from '@navigation'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -309,19 +340,45 @@ export default function App() {
 }
 ```
 
+## 5. **Add or Update `eslintrc.config.js`** with"
+
+```ts
+// eslintrc.config.js
+const { defineConfig } = require('eslint/config')
+const expoConfig = require('eslint-config-expo/flat')
+
+module.exports = defineConfig([
+  expoConfig,
+  {
+    ignores: ['dist/*'],
+    settings: {
+      'import/resolver': {
+        'babel-module': {},
+      },
+    },
+  },
+])
+```
+
+## 6. **Check for dependencies compatibility**:
+
+```bash
+npx expo-doctor
+npx expo install --check
+```
+
+## 6. **Run the app**:
+
+```bash
+npm install
+npx expo install
+npx expo start
+```
+
 ## 🧠 Recommendations
 
 - Use `Zustand` for state or replace with Redux Toolkit if needed.
 - Add modules inside `features/` for better scalability.
 - Use `react-query` or `tanstack-query` for server state (optional).
 
----
-
-## Install dependencies
-
-```bash
-  npm install zustand axios dayjs react-hook-form yup react-native-screens react-native-safe-area-context react-navigation @react-navigation/native-stack react-query
-  npm install -D eslint prettier husky lint-staged
-```
-
-Happy Building 🚀
+## Happy Building 🚀

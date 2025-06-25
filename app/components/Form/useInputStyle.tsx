@@ -38,7 +38,6 @@ export default function useInputStyle() {
       paddingHorizontal: input.padding / 2,
       justifyContent: 'center',
       height: '100%',
-      width: 30,
     },
     dropdownActivityIndicatorView: {
       width: '100%',

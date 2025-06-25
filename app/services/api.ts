@@ -1,17 +1,9 @@
-// eslint-disable-next-line import/no-unresolved
-import {
-  Token,
-  getToken,
-  // isTokenValid,
-  // persistTokens,
-  // removeTokens,
-} from '@store'
+import { EXPO_PUBLIC_API_URL } from '@env'
+import { Token, getToken } from '@store'
 import axios from 'axios'
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL
-
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: EXPO_PUBLIC_API_URL,
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 })
@@ -67,7 +59,7 @@ api.interceptors.response.use(
         const refresh = await getToken(Token.Refresh)
 
         if (!access?.token || !refresh?.token) {
-          // useAppStore.getState().logout()
+          // useStore.getState().logout()
           throw new Error('No refresh token found')
         }
         const isValid = isTokenValid({ access, refresh } as IToken)

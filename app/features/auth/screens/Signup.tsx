@@ -4,21 +4,19 @@ import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { FlatList, StyleSheet, TextInput, View } from 'react-native'
 import { ActionNote, AuthContainer } from '../components'
-import { signupData, signupForm, signupValues } from '../store/data'
+import { signupData, signupForm, signupValues } from '../data'
 
 export default function Signup({
   route,
   navigation,
 }: StackNavigationProps<AuthRoutes, 'Signup'>) {
-  const { role } = route.params
   const inputRefs = useRef<(TextInput | null)[]>([])
   const { control, handleSubmit } = useForm({
     defaultValues: signupValues,
   })
 
   const onSubmit = (data: any) => {
-    console.log(`Logging in ${role} ${data} `)
-    console.log(`Logging in as ${role}`)
+    console.log(`Logging in  ${data} `)
     navigation.navigate('VerifyClaim', {
       ...data,
     })

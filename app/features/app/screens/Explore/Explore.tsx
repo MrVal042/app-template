@@ -1,11 +1,11 @@
 import { IText, RootContainer } from '@components'
 import { StyleSheet, View } from 'react-native'
 
-export default function Onboard() {
+export default function Explore() {
   return (
-    <RootContainer>
+    <RootContainer title='Explore'>
       <View style={styles.container}>
-        <IText>Onboard</IText>
+        <IText>Explore Screen</IText>
       </View>
     </RootContainer>
   )
@@ -15,6 +15,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    gap: 20,
   },
 })

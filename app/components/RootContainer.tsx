@@ -15,6 +15,8 @@ export interface IContainer extends IHeader {
 export default function RootContainer({
   children,
   scroll,
+  leftAdornment,
+  rightAdornment,
   ...props
 }: IContainer) {
   const { rBackground } = useTheme()
@@ -31,7 +33,7 @@ export default function RootContainer({
         },
       ]}
     >
-      <Header {...props} />
+      <Header {...{ ...props, leftAdornment, rightAdornment }} />
       {scroll ? (
         <ScrollView
           style={[{ width: '100%' }, rBackground]}
