@@ -1,21 +1,12 @@
-import axios from 'axios'
+import React from 'react'
+import { useAppStore } from '@store'
+import api from '@services'
 
-const api = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_URL,
-  timeout: 10000,
-})
-
-api.interceptors.request.use((config) => {
-  // Attach token from Zustand or SecureStore
-  return config
-})
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    // Handle global errors here
-    return Promise.reject(error)
+export default function useAuth() {
+  const setUser = useAppStore((s) => s.setUser)
+  const login = async (email, password) => {
+    const res = await api.post('/login', { email, password })
+    setUser(res.data.user)
   }
-)
-
-export default api
+  return { login }
+}
