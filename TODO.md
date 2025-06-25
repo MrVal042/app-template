@@ -23,16 +23,16 @@ project-root/
   │  ├── assets/          # Fonts, images, etc.
   │  │  ├── fonts/
   │  │  ├── Images/
-  │  │  └── index.ts 
+  │  │  └── index.ts
   │  │
   │  ├── components/       # Reusable UI components (Button, Text, etc.)
   │  │   ├── Element/
   │  │   │   ├── Button.tsx
   │  │   │   ├── IText.tsx
   │  │   │   ├── IView.tsx
-  │  │   │   └── index.ts  
-  │  │   │  
-  │  │   ├── Form/          # Reusable Form 
+  │  │   │   └── index.ts
+  │  │   │
+  │  │   ├── Form/          # Reusable Form
   │  │   │   ├── FormField.tsx
   │  │   │   ├── FormInput.tsx
   │  │   │   ├── DatePicker.tsx
@@ -40,7 +40,7 @@ project-root/
   │  │   │   ├── SearchField.tsx
   │  │   │   ├── validators.ts
   │  │   │   └── index.ts
-  │  │   │  
+  │  │   │
   │  │   ├── EmptyComponent.tsx
   │  │   ├── RootContainer.tsx
   │  │   ├── BottomSheet.tsx
@@ -59,50 +59,50 @@ project-root/
   │  │   ├── layout.ts
   │  │   ├── index.ts
   │  │   └── types.d.ts
-  │  │  
+  │  │
   │  ├── features/          # Feature-based separation
-  │  │   ├── auth/          
+  │  │   ├── auth/
   │  │   │   ├── components/
   │  │   │   ├── screens/
   │  │   │   │   ├── LoginScreen.tsx
   │  │   │   │   ├── RegisterScreen.tsx
   │  │   │   │   └── index.ts
-  │  │   │   │   
+  │  │   │   │
   │  │   │   ├── store/              # Zustand/Redux slices or hooks
   │  │   │   │   ├── authStore.ts
   │  │   │   │   ├── useAuth.ts      # Handles login, logout, auth status
   │  │   │   │   └── index.ts
-  │  │   │   │   
+  │  │   │   │
   │  │   │   ├── auth.service.ts    # API calls related to auth
   │  │   │   ├── index.ts
   │  │   │   └── types.ts
   │  │   │
-  │  │   ├── app/            
+  │  │   ├── app/
   │  │   │   ├── components/
   │  │   │   ├── screens/
   │  │   │   │   ├── Home.tsx
   │  │   │   │   ├── Account.tsx
   │  │   │   │   └── index.ts
-  │  │   │   │   
+  │  │   │   │
   │  │   │   ├── services/
   │  │   │   │   ├── app.service.ts
   │  │   │   │   └── index.ts
-  │  │   │   │   
+  │  │   │   │
   │  │   │   ├── store/
   │  │   │   │   ├── appStore.ts
   │  │   │   │   ├── useApp.ts
   │  │   │   │   └── index.ts
-  │  │   │   │   
+  │  │   │   │
   │  │   │   ├── index.ts
   │  │   │   └── types.ts
   │  │   │
-  │  │   ├── notification/ 
+  │  │   ├── notification/
   │  │   │   ├── config.ts
   │  │   │   ├── screens/
   │  │   │   │   ├── Entry.tsx
   │  │   │   │   ├── details.tsx
   │  │   │   │   └── index.ts
-  │  │   │   │ 
+  │  │   │   │
   │  │   │   ├── notice.service.ts
   │  │   │   ├── index.ts
   │  │   │   └── types.ts
@@ -156,7 +156,7 @@ project-root/
   │  ├── store/
   │  ├── theme/
   │  └── utils/
-  │  
+  │
   ├── App.tsx                 # Root App
   ├── .env                    # Environment variables
   ├── env.ts                  # Environment variables
@@ -186,14 +186,15 @@ git init
 EXPO_PUBLIC_API_URL=https://example.com/api/v1
 ```
 
-### 3. **Update `.env`** with your API base URL
+### 4. **Update `env.ts`** with your API base URL
 
 ```
-// .env (ignored in Git)
-EXPO_PUBLIC_API_URL=https://example.com/api/v1
+// env.ts (ignored in Git)
+export const API_URL = process.env.EXPO_PUBLIC_API_URL!;
+
 ```
 
-### 4. **Update `babel.config.js`** with your API base URL
+### 5. **Update `babel.config.js`** with your API base URL
 
 ```
  // babel.config.js
@@ -237,7 +238,7 @@ EXPO_PUBLIC_API_URL=https://example.com/api/v1
 }
 ```
 
-### 5. **Update `tsconfig.json`** with your API base URL
+### 6. **Update `tsconfig.json`** with your API base URL
 
 ```
 // tsconfig.json
@@ -278,14 +279,14 @@ EXPO_PUBLIC_API_URL=https://example.com/api/v1
 }
 ```
 
-### 6. **Run the app**:
+### 7. **Run the app**:
 
 ```bash
 npm install
 npx expo start
 ```
 
-### 7. **Replace example screens & services** with your own.
+### 8. **Replace example screens & services** with your own.
 
 ## 🧠 Recommendations
 
@@ -298,6 +299,6 @@ npx expo start
 Happy Building 🚀
 
 ```bash
-  npm install zustand axios react-hook-form yup react-native-screens react-native-safe-area-context react-navigation @react-navigation/native-stack react-query
+  npm install zustand axios dayjs react-hook-form yup react-native-screens react-native-safe-area-context react-navigation @react-navigation/native-stack react-query
   npm install -D eslint prettier husky lint-staged
 ```
