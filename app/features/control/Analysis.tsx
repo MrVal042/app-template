@@ -1,0 +1,12 @@
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+
+export default function Analysis() {
+  return (
+    <View>
+      <Text>Analysis</Text>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({})
