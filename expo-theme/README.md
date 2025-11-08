@@ -202,7 +202,6 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-
 ## 🤝 Contributing
 
 PRs welcome for new templates (auth flow, Supabase, etc.).
@@ -211,8 +210,3 @@ Follow clean commit messages and script consistency.
 ## 📜 License
 
 MIT © MrVal042
-
-
----
-
-Would you like me to modify this README so it uses your real GitHub username and repo link automatically (e.g. `MrVal042/app-structure-expo-theme`)?
