@@ -19,7 +19,8 @@ A fast bootstrap script to spin up a **ready-to-scale Expo + TypeScript project*
 Run this one-line command in any empty folder:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/mrval042/app-structure/expo-theme/main/template.sh | bash
+curl -sSL https://raw.githubusercontent.com/MrVal042/app-template/main/expo-theme/bootstrap.sh | bash
+
 ```
 
 Or download manually:

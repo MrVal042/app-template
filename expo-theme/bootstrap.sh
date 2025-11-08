@@ -3,13 +3,16 @@ set -e
 
 CURRENT_DIR=$(basename "$PWD")
 APP_NAME=$CURRENT_DIR
-REPO_URL="https://github.com/MrVal042/app-structure-expo-theme"
+TEMPLATE_URL="https://github.com/MrVal042/app-template/tree/main/expo-theme"
 TMP_REPO=".tmp-app-structure"
 GREEN='\033[32m'
 CYAN='\033[36m'
 RESET='\033[0m'
 
-echo -e "\n⚙️  Running template for ${CYAN}$APP_NAME${RESET}\n"
+echo "🚀 Setting up Expo Theme Template in '$APP_NAME'..."
+curl -sSL https://raw.githubusercontent.com/MrVal042/app-template/main/expo-theme/template.sh | bash
+
+echo -e "\n⚙️  Running bootstrap for ${CYAN}$APP_NAME${RESET}\n"
 
 echo -e "🚀 Step 1: ${CYAN}Initializing...${RESET}"
 npx create-expo-app@latest $APP_NAME --template blank-typescript
@@ -188,5 +191,5 @@ echo "  - npm run ios"
 echo "  - npm run web"
 echo
 
-rm -f template.sh
+rm -f bootstrap.sh
 git add .
