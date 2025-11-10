@@ -3,14 +3,12 @@ set -e
 
 CURRENT_DIR=$(basename "$PWD")
 APP_NAME=$CURRENT_DIR
-TEMPLATE_URL="https://github.com/MrVal042/app-template/tree/main/expo-theme"
-TMP_REPO=".tmp-app-structure"
+TMP_REPO=".tmp-expo-theme-structure"
 GREEN='\033[32m'
 CYAN='\033[36m'
 RESET='\033[0m'
 
 echo "🚀 Setting up Expo Theme Template in '$APP_NAME'..."
-curl -sSL https://raw.githubusercontent.com/MrVal042/app-template/main/expo-theme/bootstrap.sh | bash
 
 echo -e "\n⚙️  Running bootstrap for ${CYAN}$APP_NAME${RESET}\n"
 
