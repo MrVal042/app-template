@@ -1,46 +1,78 @@
 #!/bin/bash
 set -e
 
+# -------------------------
+# Config
+# -------------------------
 CURRENT_DIR=$(basename "$PWD")
 APP_NAME=$CURRENT_DIR
-REPO_URL="https://github.com/MrVal042/app-template/tree/main/expo-theme"
+REPO_URL="https://github.com/MrVal042/app-template.git"
 TMP_REPO=".tmp-app-structure"
+TEMPLATE_FOLDER="expo-theme"
+
 GREEN='\033[32m'
 CYAN='\033[36m'
 RESET='\033[0m'
 
+# -------------------------
+# Start
+# -------------------------
 echo "🚀 Setting up Expo Theme Template in '$APP_NAME'..."
-
 echo -e "\n⚙️  Running bootstrap for ${CYAN}$APP_NAME${RESET}\n"
 
-echo -e "🚀 Step 1: ${CYAN}Initializing...${RESET}"
+# -------------------------
+# Step 1: Initialize Expo app
+# -------------------------
+echo -e "🚀 Step 1: ${CYAN}Initializing Expo project...${RESET}"
 npx create-expo-app@latest $APP_NAME --template blank-typescript
 echo
 
-echo -e "⚙️ Step 2: ${CYAN}Validating and moving files...${RESET}"
+# -------------------------
+# Step 2: Move files to current folder
+# -------------------------
+echo -e "⚙️ Step 2: ${CYAN}Moving project files into current folder...${RESET}"
 shopt -s dotglob
 mv $APP_NAME/* ./
 rm -rf $APP_NAME
 shopt -u dotglob
 
+# Fix package.json name
 node -e "let p=require('./package.json');p.name='$APP_NAME';require('fs').writeFileSync('package.json',JSON.stringify(p,null,2));"
+
+# Add env files to gitignore
 echo -e "\n\n# Environment files\n.env\n.env.*" >> .gitignore
 
-echo -e "\n📁 Step 3: ${CYAN}Cloning structure from repo...${RESET}"
+# -------------------------
+# Step 3: Clone template and copy files
+# -------------------------
+echo -e "\n📁 Step 3: ${CYAN}Cloning template structure from repo...${RESET}"
 git clone --depth 1 $REPO_URL $TMP_REPO
 
-mkdir -p app __test__ types
-[ -d "$TMP_REPO/app" ] && cp -r $TMP_REPO/app/* ./app
-[ -d "$TMP_REPO/__test__" ] && cp -r $TMP_REPO/__test__/* ./__test__
-[ -f "$TMP_REPO/App.tsx" ] && cp $TMP_REPO/App.tsx ./App.tsx
-[ -f "$TMP_REPO/.env.development" ] && cp $TMP_REPO/.env.development ./.env.development
-[ -f "$TMP_REPO/.env.preview" ] && cp $TMP_REPO/.env.preview ./.env.preview
-[ -f "$TMP_REPO/.env.production" ] && cp $TMP_REPO/.env.production ./.env.production
-[ -f "$TMP_REPO/env.d.ts" ] && cp $TMP_REPO/env.d.ts ./env.d.ts
-[ -f "$TMP_REPO/index.ts" ] && cp $TMP_REPO/index.ts ./index.ts
+# Ensure template folder exists
+if [ ! -d "$TMP_REPO/$TEMPLATE_FOLDER" ]; then
+  echo "❌ Template folder '$TEMPLATE_FOLDER' not found in cloned repo!"
+  rm -rf $TMP_REPO
+  exit 1
+fi
+
+# Remove git history from template
+rm -rf $TMP_REPO/.git
+
+# Copy folders/files from template
+for folder in app __test__ types; do
+  [ -d "$TMP_REPO/$TEMPLATE_FOLDER/$folder" ] && cp -r "$TMP_REPO/$TEMPLATE_FOLDER/$folder" "./$folder"
+done
+
+for file in App.tsx .env.development .env.preview .env.production env.d.ts index.ts; do
+  [ -f "$TMP_REPO/$TEMPLATE_FOLDER/$file" ] && cp "$TMP_REPO/$TEMPLATE_FOLDER/$file" "./$file"
+done
+
 rm -rf $TMP_REPO
 echo
 
+# -------------------------
+# Step 4: Install dependencies
+# -------------------------
 echo -e "🧩 Step 4: ${CYAN}Installing dependencies...${RESET}"
 npx expo install \
 @expo/vector-icons \
@@ -84,6 +116,9 @@ babel-plugin-module-resolver \
 typescript
 echo
 
+# -------------------------
+# Step 5: Setup tsconfig and babel
+# -------------------------
 cat > tsconfig.json << 'EOF'
 {
   "compilerOptions": {
@@ -168,13 +203,12 @@ module.exports = function (api) {
 }
 EOF
 
-echo
 npx expo install --check
-echo
-echo -e "⚙️ Step 5: ${CYAN}Running Expo Doctor...${RESET}"
 npx expo-doctor
-echo
 
+# -------------------------
+# Done
+# -------------------------
 echo -e "- App structure with theme ${GREEN}passed ✅${RESET}"
 echo -e "- Dependencies installed   ${GREEN}passed ✅${RESET}"
 echo -e "- No leftover codes        ${GREEN}passed ✅${RESET}"
@@ -188,7 +222,7 @@ echo "  - npm run start"
 echo "  - npm run android"
 echo "  - npm run ios"
 echo "  - npm run web"
-echo
 
+# Cleanup
 rm -f bootstrap.sh
 git add .
