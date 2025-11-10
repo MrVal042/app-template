@@ -6,17 +6,25 @@ import { useState } from 'react'
 import { Image } from 'expo-image'
 import { bgImage } from '@data'
 import { width } from '@constants'
+import { useAuth } from '@store'
 
 export default function Onboard({
   navigation,
 }: StackNavigationProps<AuthRoutes, 'Onboard'>) {
   const [next, setNext] = useState(0)
+  const { toggleState } = useAuth()
+
   const label = [
     'Onboard Screen',
     'Enjoy Classic',
     'Readable & Scalable',
     'Production Ready',
   ]
+  const handleSkip = () => {
+    navigation.replace('Welcome')
+    toggleState('isNewUser', false)
+  }
+
   return (
     <RootContainer>
       <View style={stylex.container}>
@@ -31,18 +39,14 @@ export default function Onboard({
           label={next === 0 ? 'Skip' : 'Prev'}
           variant={next === 0 ? 'outline' : 'primary'}
           onPress={() => {
-            next > 0
-              ? setNext((prev) => prev - 1)
-              : navigation.replace('Welcome')
+            next > 0 ? setNext((prev) => prev - 1) : handleSkip()
           }}
         />
         <IButton
           label='Next'
           width={'40%'}
           onPress={() => {
-            next < 3
-              ? setNext((prev) => prev + 1)
-              : navigation.replace('Welcome')
+            next < 3 ? setNext((prev) => prev + 1) : handleSkip()
           }}
           icon={{ name: 'arrow-circle-right', alignIcon: 'right' }}
         />

@@ -13,6 +13,7 @@ export interface IContainer extends IHeader {
   scroll?: boolean
 }
 
+export const duration = 500
 export default function RootContainer({
   children,
   scroll,
@@ -20,24 +21,20 @@ export default function RootContainer({
   rightAdornment,
   ...props
 }: IContainer) {
-  const { rBackground } = useTheme()
+  const { colors } = useTheme()
   const { top } = useSafeAreaInsets()
 
+  const dStyle = {
+    paddingTop: top,
+    backgroundColor: colors.background,
+  }
+
   return (
-    <IView
-      style={[
-        styles.container,
-        {
-          paddingTop: top,
-          alignItems: 'center',
-          height: height * 1.2,
-        },
-      ]}
-    >
+    <IView style={[styles.container, dStyle]}>
       <Header {...{ ...props, leftAdornment, rightAdornment }} />
       {scroll ? (
         <ScrollView
-          style={[{ width: '100%' }, rBackground]}
+          style={{ width: '100%' }}
           showsVerticalScrollIndicator={false}
         >
           {children}
@@ -54,6 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
+    height: height * 1.2,
     paddingHorizontal: 15,
   },
 })

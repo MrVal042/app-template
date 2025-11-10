@@ -1,77 +1,79 @@
-// ThemeText.tsx
 import { width } from '@constants'
 import { useTheme } from '@hooks'
+import Animated from 'react-native-reanimated'
 import {
-  PixelRatio,
-  TextProps as RNTextProps,
   StyleProp,
   TextStyle,
+  PixelRatio,
+  TextProps as RNTextProps,
 } from 'react-native'
-import Animated, { SharedValue } from 'react-native-reanimated'
 
 const guidelineBaseWidth = 375
+
 const scaleFont = (size: number) => {
   const scale = width / guidelineBaseWidth
   return Math.round(PixelRatio.roundToNearestPixel(size * scale))
 }
 
-type TextVariant = 'regular' | 'bold' | 'semibold' | 'title' | 'light'
 type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify'
 type TextTransform = 'none' | 'capitalize' | 'uppercase' | 'lowercase'
+type TextVariant =
+  | 'regular'
+  | 'bold'
+  | 'semibold'
+  | 'title'
+  | 'light'
+  | 'extraBold'
 
 interface Props extends RNTextProps {
-  size?: number
-  color?: string | SharedValue<string>
-  textAlign?: TextAlign
   textTransform?: TextTransform
-  variant?: TextVariant
   style?: StyleProp<TextStyle>
+  textAlign?: TextAlign
+  variant?: TextVariant
+  color?: string
+  size?: number
 }
 
 const fontFamilyMap: Record<TextVariant, string> = {
-  light: 'System',
-  regular: 'System',
-  bold: 'System',
+  extraBold: 'System',
   semibold: 'System',
+  regular: 'System',
+  light: 'System',
   title: 'System',
+  bold: 'System',
 }
 
 const fontWeightMap: Record<TextVariant, TextStyle['fontWeight']> = {
-  light: '300',
-  regular: '400',
+  extraBold: '900',
   semibold: '600',
-  bold: '700',
+  regular: '400',
+  light: '200',
   title: '700',
+  bold: '800',
 }
 
 export default function ThemeText({
-  size = 14,
-  color,
-  textAlign = 'left',
   textTransform = 'none',
   variant = 'regular',
-  style,
+  textAlign = 'left',
+  size = 14,
   ...rest
 }: Props) {
-  const { rColor } = useTheme()
-
-  // If color is provided as a string, use it directly
-  // Otherwise use the animated text color from the theme
-  const colorStyle = typeof color === 'string' ? { color } : rColor
+  const { colors } = useTheme()
 
   return (
     <Animated.Text
       {...rest}
       style={[
         {
-          textAlign,
-          textTransform,
-          fontSize: scaleFont(size),
+          fontSize: scaleFont(variant === 'light' ? 12 : size),
           fontFamily: fontFamilyMap[variant],
           fontWeight: fontWeightMap[variant],
+          color: rest.color || colors.text,
+          textTransform,
+          textAlign,
         },
-        colorStyle,
-        style,
+        rest.style,
       ]}
     />
   )

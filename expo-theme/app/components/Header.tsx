@@ -1,27 +1,28 @@
 import { useNavigation } from '@react-navigation/native'
+import { IText, IView } from './Element'
+import { useTheme } from '@hooks'
+import Icon from './Icon'
 import React from 'react'
 import {
-  StyleSheet,
   TextStyle,
-  TouchableOpacity,
   ViewStyle,
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native'
-
-import { useTheme } from '@hooks'
-import { IText, IView } from './Element'
-import Icon from './Icon'
 
 interface IHeader {
   leftAdornment?: React.ReactNode
   rightAdornment?: React.ReactNode
   hideGoBack?: boolean
+  hideLine?: boolean
   title?: string
 }
 
 export default function Header({
-  leftAdornment,
   rightAdornment,
+  leftAdornment,
   hideGoBack,
+  hideLine,
   title,
 }: IHeader) {
   const { colors, isDarkMode } = useTheme()
@@ -34,6 +35,7 @@ export default function Header({
         styles.wrap,
         {
           borderColor: isDarkMode ? colors.primary : colors.primaryDark,
+          borderBottomWidth: hideLine ? 0 : 0.2,
           justifyContent:
             !showNav && !title && !rightAdornment
               ? 'flex-end'
@@ -75,9 +77,8 @@ const styles = StyleSheet.create({
   wrap: {
     width: '100%',
     paddingVertical: 10,
-    marginBottom: 10,
+    marginBottom: -15,
     alignItems: 'center',
-    borderBottomWidth: 0.2,
     flexDirection: 'row',
   },
   title: {

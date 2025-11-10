@@ -8,7 +8,6 @@ const avatarSize = 30
 
 export default function HomeScreen() {
   const { colors, isDarkMode, navigation } = useApp()
-
   return (
     <RootContainer
       leftAdornment={

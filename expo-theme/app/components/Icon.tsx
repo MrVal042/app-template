@@ -6,16 +6,10 @@ import {
   Ionicons,
   MaterialIcons,
 } from '@expo/vector-icons'
-import { duration, useTheme } from '@hooks'
+import { useTheme } from '@hooks'
 import type { ComponentProps } from 'react'
-import { useEffect } from 'react'
 import { StyleProp, TextStyle } from 'react-native'
-import Animated, {
-  interpolateColor,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
+import Animated from 'react-native-reanimated'
 
 // Icon variant type
 type IconVariant =
@@ -73,30 +67,14 @@ export default function Icon({
   color,
   style,
 }: IconProps) {
-  const { isDarkMode, colors } = useTheme()
-  const progress = useSharedValue(isDarkMode ? 1 : 0)
-
-  useEffect(() => {
-    progress.value = withTiming(isDarkMode ? 1 : 0, {
-      duration,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDarkMode])
-
-  const rColor = useAnimatedStyle(() => ({
-    color: interpolateColor(
-      progress.value,
-      [0, 1],
-      [color || colors.black, color || colors.white] // Using danger colors for demonstration
-    ),
-  }))
+  const { colors } = useTheme()
 
   const resolvedVariant: IconVariant = variant ?? detectIconSet(name)
 
   const commonProps = {
     name: name as IconProps['name'],
     size: scale(size),
-    style: [rColor, style],
+    style: [{ color: color || colors.text }, style],
   }
 
   switch (resolvedVariant) {

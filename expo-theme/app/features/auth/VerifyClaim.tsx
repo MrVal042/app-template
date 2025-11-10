@@ -123,15 +123,11 @@ export default function VerifyClaim({
           actionText='Resend Code'
           onPress={() => console.log('Resend code')}
         />
-
-        <View style={styles.footer}>
-          <IButton
-            label='Verify'
-            onPress={() => navigation.navigate('Login')}
-          />
-          <Divider space='l' />
-        </View>
       </Pressable>
+      <View style={styles.footer}>
+        <IButton label='Verify' onPress={() => navigation.navigate('Login')} />
+        <Divider space='l' />
+      </View>
     </RootContainer>
   )
 }
@@ -157,8 +153,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
   },
   footer: {
-    marginTop: 'auto',
     width: '100%',
+    marginTop: 'auto',
     paddingVertical: 20,
     alignItems: 'center',
     justifyContent: 'center',

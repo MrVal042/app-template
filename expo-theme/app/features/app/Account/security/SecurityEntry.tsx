@@ -10,17 +10,20 @@ import {
 import { IColors } from '@constants'
 import { useApp } from '@hooks'
 import { StackNavigationProps } from '@navigation'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useAuth } from '@store'
 
-type IKey = Partial<keyof AccountRoutes | 'autoLogin' | 'deleteAccount'>
+type IKey = Partial<
+  keyof AccountRoutes | 'autoLogin' | 'deleteAccount' | 'resetApp'
+>
 
 export default function SecurityEntry({
   navigation,
 }: StackNavigationProps<AccountRoutes, 'Security'>) {
   const { colors, isDarkMode } = useApp()
-  const { autoLogin, toggleAutoLogin } = useAuth()
+  const [type, setType] = useState<'resetApp' | 'deleteAccount' | ''>('')
+  const { autoLogin, toggleAutoLogin, logout, toggleState } = useAuth()
   const bottomSheetRef = useRef<Handles>(null)
 
   const handlePress = (key: IKey) => {
@@ -29,6 +32,11 @@ export default function SecurityEntry({
         toggleAutoLogin()
         return
       case 'deleteAccount':
+        setType(key)
+        bottomSheetRef.current?.snapTo(2)
+        return
+      case 'resetApp':
+        setType(key)
         bottomSheetRef.current?.snapTo(2)
         return
       default:
@@ -37,6 +45,11 @@ export default function SecurityEntry({
     }
   }
 
+  const title = type === 'deleteAccount' ? 'Delete account?' : 'Reset App?'
+  const description =
+    type === 'deleteAccount'
+      ? 'Deleting account will permanently remove you from our system'
+      : 'Resetting the app will clear the cache and take you back to the onboarding flow'
   return (
     <RootContainer title='Security'>
       <FlatList
@@ -75,22 +88,26 @@ export default function SecurityEntry({
       />
       <IBottomSheet ref={bottomSheetRef}>
         <IText variant='bold' size={18} textAlign='center'>
-          Delete account?
+          {title}
         </IText>
         <Divider />
-        <IText textAlign='center'>
-          Deleting account will permanently remove you from our system
-        </IText>
+        <IText textAlign='center'>{description}</IText>
         <Divider space='l' />
         <IButton
           label='Continue'
-          onPress={() => bottomSheetRef.current?.handleClose()}
+          onPress={() => {
+            if (type === 'resetApp') {
+              toggleState('isNewUser', false)
+              toggleState('isRegistered', false)
+              logout()
+              return
+            }
+            bottomSheetRef.current?.handleClose()
+          }}
         />
-        <Divider space='xs' />
         <IButton
           label='Cancel'
           variant='outline'
-          color={colors.dangerDark}
           onPress={() => bottomSheetRef.current?.handleClose()}
         />
         <Divider />
@@ -135,6 +152,10 @@ const securityOptions: { label: string; key: IKey; isToggle?: boolean }[] = [
   {
     label: 'Security Settings',
     key: 'Security',
+  },
+  {
+    label: 'Reset app',
+    key: 'resetApp',
   },
   {
     label: 'Delete Account',

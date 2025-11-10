@@ -12,7 +12,7 @@ import { StyleSheet, TextInput, View } from 'react-native'
 const defaultValues = {
   password: '',
   newPassword: '',
-  confirmPassword: '',
+  confirm_password: '',
 }
 
 type FormValues = typeof defaultValues
@@ -55,7 +55,7 @@ export default function ChangePassword() {
                 }}
                 rules={{
                   required: `${item.label} is required`,
-                  ...(item.name === 'confirmPassword' && {
+                  ...(item.name === 'confirm_password' && {
                     validate: (value) => {
                       const newPassword = watch('newPassword')
                       return value === newPassword || 'Passwords do not match'
@@ -109,7 +109,7 @@ export const passwordData: FormData[] = [
   },
   {
     label: 'Confirm Password',
-    name: 'confirmPassword',
+    name: 'confirm_password',
     placeholder: 'Confirm password',
   },
 ]

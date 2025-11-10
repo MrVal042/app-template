@@ -2,10 +2,10 @@ import { KeyboardTypeOptions } from 'react-native'
 
 export const loginValues = { email: '', password: '' }
 export const signupValues = {
-  confirmPassword: '',
+  confirm_password: '',
+  phone_number: '',
   password: '',
   email: '',
-  phone: '',
 }
 
 export type loginForm = typeof loginValues
@@ -57,13 +57,13 @@ export const signupData: {
   },
   {
     secureTextEntry: true,
-    name: 'confirmPassword',
+    name: 'confirm_password',
     keyboardType: 'default',
     label: 'Confirm Password',
     placeholder: 'Confirm your password',
   },
   {
-    name: 'phone',
+    name: 'phone_number',
     label: 'Phone Number',
     secureTextEntry: false,
     keyboardType: 'phone-pad',

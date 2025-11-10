@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   DimensionValue,
   StyleProp,
   StyleSheet,
@@ -9,60 +10,95 @@ import {
   View,
 } from 'react-native'
 
-import { IColors } from '@constants'
 import Icon, { IconProps } from '../Icon'
+import { useTheme } from '@hooks'
 
 interface IConProps extends IconProps {
   alignIcon?: 'left' | 'right'
 }
 
 interface BtnProps extends TouchableOpacityProps {
+  variant?: 'primary' | 'secondary' | 'outline'
+  textStyle?: StyleProp<TextStyle>
+  height?: DimensionValue
+  width?: DimensionValue
+  marginBottom?: number
+  isLoading?: boolean
+  marginTop?: number
+  icon?: IConProps
   bgColor?: string
   color?: string
   label: string
-  icon?: IConProps
-  variant?: 'primary' | 'secondary' | 'outline'
-  textStyle?: StyleProp<TextStyle>
-  width?: DimensionValue
-  height?: DimensionValue
 }
 
 export default function Button({
+  variant = 'primary',
+  marginBottom = 15,
+  width = '100%',
+  height = 48,
+  textStyle,
+  isLoading,
+  marginTop,
+  disabled,
   bgColor,
   color,
-  icon,
-  width = '100%',
   label,
-  variant = 'primary',
   style,
-  textStyle,
-  disabled,
-  height = 48,
+  icon,
   ...props
 }: BtnProps) {
-  const isOutline = variant === 'outline'
+  const { colors, isDarkMode } = useTheme()
+
+  const styleMap = {
+    primary: {
+      backgroundColor: disabled ? colors.grey[500] : bgColor || colors.button,
+      color: disabled
+        ? colors.black
+        : color
+        ? color
+        : isDarkMode
+        ? colors.black
+        : colors.white,
+      borderColor: undefined,
+    },
+    secondary: {
+      backgroundColor: disabled
+        ? colors.grey[500]
+        : bgColor || colors.secondaryDark,
+      borderColor: undefined,
+      color: disabled
+        ? colors.black
+        : color
+        ? color
+        : isDarkMode
+        ? colors.black
+        : colors.white,
+    },
+    outline: {
+      borderWidth: 1,
+      backgroundColor: colors.transparent,
+      borderColor: disabled ? colors.grey[500] : color || colors.activeColor,
+      color: disabled ? colors.grey[500] : color || colors.activeColor,
+    },
+  }
 
   const btnStyle = [
     styles.btn,
     style,
-    styles[variant],
+    styleMap[variant],
     {
-      backgroundColor: bgColor || styles[variant].backgroundColor,
       opacity: disabled ? 0.5 : 1,
-      width,
+      marginTop,
       height,
+      width,
+      marginBottom,
     },
-    !bgColor && isOutline && { borderColor: color || IColors.primary },
   ]
 
-  const txtStyle = [
+  const txtStyles = [
     {
       ...styles.text,
-      color: disabled
-        ? IColors.black
-        : !color && isOutline
-        ? IColors.primary
-        : color || IColors.white,
+      color: styleMap[variant].color,
     },
     textStyle,
   ]
@@ -71,8 +107,8 @@ export default function Button({
     <TouchableOpacity
       {...props}
       style={btnStyle}
-      disabled={disabled}
       activeOpacity={0.8}
+      disabled={isLoading || disabled}
     >
       <View
         style={[
@@ -82,8 +118,14 @@ export default function Button({
           },
         ]}
       >
-        {icon && <Icon {...icon} color={color || IColors.white} />}
-        <Text style={txtStyle}>{label}</Text>
+        {icon && <Icon {...icon} color={styleMap[variant].color} />}
+        <Text style={txtStyles}>
+          {isLoading ? (
+            <ActivityIndicator color={styleMap[variant].color} />
+          ) : (
+            label
+          )}
+        </Text>
       </View>
     </TouchableOpacity>
   )
@@ -105,16 +147,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textTransform: 'capitalize',
     fontWeight: '500',
-  },
-  primary: {
-    backgroundColor: IColors.primary,
-  },
-  secondary: {
-    backgroundColor: IColors.secondary,
-  },
-  outline: {
-    backgroundColor: IColors.transparent,
-    borderWidth: 1,
-    borderColor: IColors.primary,
   },
 })

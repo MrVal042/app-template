@@ -87,9 +87,8 @@ export default function AccountEntry() {
       <IBottomSheet ref={ref}>
         <View>
           <IText textAlign='center'>Are you sure you want to logout?</IText>
-          <Divider space='l' />
+          <Divider space='xl' />
           <IButton label='Continue' onPress={logout} />
-          <Divider space='s' />
           <IButton
             label='Cancel'
             variant='outline'
