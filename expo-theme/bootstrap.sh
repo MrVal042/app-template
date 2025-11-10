@@ -40,7 +40,7 @@ shopt -u dotglob
 node -e "let p=require('./package.json');p.name='$APP_NAME';require('fs').writeFileSync('package.json',JSON.stringify(p,null,2));"
 
 # Add env files to gitignore
-echo -e "\n\n# Environment files\n.env\n.env.*" >> .gitignore
+echo -e "\n# Environment files\n.env\n.env.*\nenv.d.ts" >> .gitignore
 
 # -------------------------
 # Step 3: Clone template and copy files
@@ -77,6 +77,7 @@ echo -e "🧩 Step 4: ${CYAN}Installing dependencies...${RESET}"
 npx expo install \
 @expo/vector-icons \
 @gorhom/bottom-sheet \
+@hookform/resolvers \
 @react-native-async-storage/async-storage \
 @react-native-community/datetimepicker \
 @react-navigation/bottom-tabs \
@@ -136,8 +137,8 @@ cat > tsconfig.json << 'EOF'
     "noImplicitAny": true,
     "jsx": "react-native",
     "skipLibCheck": true,
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es6",
+    "module": "es6",
     "allowJs": true,
     "noEmit": true,
     "strict": true,
