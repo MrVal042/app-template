@@ -3,7 +3,7 @@ set -e
 
 CURRENT_DIR=$(basename "$PWD")
 APP_NAME=$CURRENT_DIR
-TMP_REPO=".tmp-expo-theme-structure"
+TMP_REPO=".tmp-app-structure"
 GREEN='\033[32m'
 CYAN='\033[36m'
 RESET='\033[0m'
