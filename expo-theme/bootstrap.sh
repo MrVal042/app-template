@@ -10,7 +10,7 @@ CYAN='\033[36m'
 RESET='\033[0m'
 
 echo "🚀 Setting up Expo Theme Template in '$APP_NAME'..."
-curl -sSL https://raw.githubusercontent.com/MrVal042/app-template/main/expo-theme/template.sh | bash
+curl -sSL https://raw.githubusercontent.com/MrVal042/app-template/main/expo-theme/bootstrap.sh | bash
 
 echo -e "\n⚙️  Running bootstrap for ${CYAN}$APP_NAME${RESET}\n"
 
