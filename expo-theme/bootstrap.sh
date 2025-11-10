@@ -3,6 +3,7 @@ set -e
 
 CURRENT_DIR=$(basename "$PWD")
 APP_NAME=$CURRENT_DIR
+REPO_URL="https://github.com/MrVal042/app-template/tree/main/expo-theme"
 TMP_REPO=".tmp-app-structure"
 GREEN='\033[32m'
 CYAN='\033[36m'
