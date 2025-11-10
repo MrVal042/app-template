@@ -1,190 +1,69 @@
-# 🚀 Expo App Structure Template
+# 🚀 Expo + theme App Structure Template
 
-A fast bootstrap script to spin up a **ready-to-scale Expo + TypeScript project** with organized folders, aliases, and essential dependencies.
+A ready-to-scale Expo + TypeScript boilerplate for production-grade mobile apps — clean, modular, and built to grow.
 
----
+## ⚙️ Core Features
 
-## ⚙️ Features
-
-- 🧱 Clean file structure (`app/`, `types/`, `__test__/`) with alias
-- 🎨 Pre-configured path aliases and Babel setup
-- 📦 Expo SDK–compatible dependency install
-- ⚡ TypeScript + React Navigation + Zustand + React Query
-- 🧰 Built-in `.env`, `env.ts`, and project doctor check
-
----
+- 🧱 Organized Architecture → app/, types/, **tests**/, and alias support
+- ⚡ Pre-configured Setup → TypeScript, Babel aliases, React Navigation, Zustand, React Query
+- 🎨 Theme-Ready UI → Dark & light modes, reusable components, Expo vector icons
+- 🧰 Built-in Environments → .env.development, .env.preview, .env.production, env.d.ts
+- 🪄 Quality-of-Life Tools → Project doctor, strict typing, automated dependency install
 
 ## 🧭 Quick Start
 
-Run this one-line command in any empty folder:
+Run this one command in an empty folder:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/MrVal042/app-template/main/expo-theme/bootstrap.sh | bash
 
 ```
 
-Or download manually:
+#### Or install manually:
 
 ```bash
-curl -O https://raw.githubusercontent.com/mrval042/app-structure/expo-theme/main/template.sh
-chmod +x bootstrap-expo-template.sh
-./bootstrap-expo-template.sh
+curl -O https://raw.githubusercontent.com/MrVal042/app-template/main/expo-theme/bootstrap.sh
+chmod +x bootstrap.sh
+./bootstrap.sh
 
 ```
 
-## 📁 Resulting Structure
+## 📁 Project Structure
 
 ```pgsql
 
-mobile/
+folder-name/
 ├── app/
-│  ├── api/
-│  │   ├── auth.service.ts
-│  │   ├── endpoint.ts
-│  │   └── index.ts
-│  │
-│  ├── components/
-│  │   ├── Element/
-│  │   │   ├── ThemeText.tsx
-│  │   │   ├── ThemeView.tsx
-│  │   │   ├── Button.tsx
-│  │   │   └── index.ts
-│  │   │
-│  │   ├── Form/
-│  │   │   ├── Dropdown/
-│  │   │   ├── useInputStyle.tsx
-│  │   │   ├── SearchField.tsx
-│  │   │   ├── DatePicker.tsx
-│  │   │   ├── LabelInput.tsx
-│  │   │   ├── FormField.tsx
-│  │   │   ├── validators.ts
-│  │   │   ├── OTPField.tsx
-│  │   │   └── index.ts
-│  │   │
-│  │   ├── EmptyComponent.tsx
-│  │   ├── BottomSheet.tsx
-│  │   ├── ComingSoon.tsx
-│  │   ├── Divider.tsx
-│  │   ├── Avatar.tsx
-│  │   ├── Header.tsx
-│  │   ├── Icon.tsx
-│  │   ├── LoadingList.tsx
-│  │   ├── RootContainer.tsx
-│  │   ├── ShadowStyles.ts
-│  │   ├── Skeletal.tsx
-│  │   ├── BgImage.tsx
-│  │   └── index.ts
-│  │
-│  ├── constants/
-│  │   ├── fonts.ts
-│  │   ├── index.ts
-│  │   ├── colors.ts
-│  │   ├── layout.ts
-│  │   └── types.d.ts
-│  │
-│  ├── data/
-│  │   ├── layout.ts
-│  │   ├── auth.ts
-│  │   └── user.ts
-│  │
-│  ├── features/
-│  │   ├── app/
-│  │   │   ├── Account/
-│  │   │   ├── Explore/
-│  │   │   ├── Home/
-│  │   │   └── index.ts
-│  │   │
-│  │   ├── auth/
-│  │   │   ├── components/
-│  │   │   ├── ForgotPassword.tsx
-│  │   │   ├── ResetPassword.tsx
-│  │   │   ├── VerifyClaim.tsx
-│  │   │   ├── SingUp.tsx
-│  │   │   ├── SingIn.tsx
-│  │   │   └── index.ts
-│  │   │
-│  │   ├── control/
-│  │   │   ├── ErrorBoundary.tsx
-│  │   │   ├── Analysis.tsx
-│  │   │   ├── Welcome.tsx
-│  │   │   ├── Onboard.tsx
-│  │   │   └── index.ts
-│  │   │
-│  │   ├── notification/
-│  │   │   ├── NotificationDetails.tsx
-│  │   │   ├── Notification.tsx
-│  │   │   ├── config.ts
-│  │   │   └── index.ts
-│  │   │
-│  │   └── index.ts
-│  │
-│  ├── hooks/
-│  │   ├── useChangeTracker.ts
-│  │   ├── useRequestClient.ts
-│  │   ├── useExistApp.ts
-│  │   ├── useKeyboard.ts
-│  │   ├── useTheme.ts
-│  │   ├── useApp.ts
-│  │   ├── useApi.ts
-│  │   └── index.ts
-│  │
-│  ├── navigation/
-│  │   ├── navigationRef.tsx
-│  │   ├── AuthNavigator.tsx
-│  │   ├── AppNavigator.tsx
-│  │   ├── BottomTabs.tsx
-│  │   ├── LoadApp.tsx
-│  │   ├── Toaster.tsx
-│  │   ├── types.d.ts
-│  │   └── index.ts
-│  │
-│  ├── store/
-│  │   ├── securedStore.tsx
-│  │   ├── useAuthStore.ts
-│  │   ├── useAppStore.ts
-│  │   └── index.ts
-│  │
-│  ├── types/
-│  │   ├── screen.d.ts
-│  │   ├── types.d.ts
-│  │   └── user.d.ts
-│  │
-│  └── utils/
-│      ├── dataController.tsx
-│      ├── dateController.tsx
-│      ├── errorController.tsx
-│      ├── helper.tsx
-│      └── index.ts
+│   ├── api/                 # API clients & endpoints
+│   ├── components/          # Reusable UI and Form elements
+│   ├── constants/           # Colors, fonts, layout
+│   ├── data/                # Mock or static data
+│   ├── features/            # Core app modules (auth, control, app, etc.)
+│   ├── hooks/               # Reusable logic hooks
+│   ├── navigation/          # Stack, Tabs, and navigation utilities
+│   ├── store/               # Zustand global stores
+│   ├── types/               # Shared TypeScript definitions
+│   └── utils/               # Helper functions and formatters
 │
-├── __tests__/
-│  ├── components/
-│  ├── constants/
-│  ├── features/
-│  ├── hooks/
-│  ├── navigation/
-│  ├── store/
-│  └── utils/
-│
-├── .env.development
-├── .env.preview
-├── .env.production
-├── .gitIgnore
+├── __tests__/               # Unit, component, and integration tests
+├── .env.*                   # Environment variables
 ├── app.json
 ├── App.tsx
 ├── babel.config.js
 ├── env.d.ts
-├── README.md
-└── tsconfig.json
+├── tsconfig.json
+└── README.md
 
 ```
 
-## 🧩 Next Steps
+## 🧩 Available Scripts
 
 ```bash
-npm run start   # Launch dev server
-npm run android # Run on Android
-npm run ios     # Run on iOS
-npm run web     # Run on web
+npm run start      # Launch Expo dev server
+npm run android    # Run app on Android
+npm run ios        # Run app on iOS
+npm tsc            # TypeScript Compiler
+
 ```
 
 ## 🛠 Requirements
@@ -205,9 +84,12 @@ git push origin v1.0.0
 
 ## 🤝 Contributing
 
-PRs welcome for new templates (auth flow, Supabase, etc.).
-Follow clean commit messages and script consistency.
+Pull requests welcome for:
+
+- New templates (Supabase, Wallet, AI etc.)
+- Documentation and test coverage improvements
+- Follow clean commit messages and maintain script consistency.
 
 ## 📜 License
 
-MIT © MrVal042
+MIT © [MrVal042](https://github.com/MrVal042)

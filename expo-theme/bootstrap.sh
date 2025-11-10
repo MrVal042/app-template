@@ -222,7 +222,7 @@ echo "Next steps:"
 echo "  - npm run start"
 echo "  - npm run android"
 echo "  - npm run ios"
-echo "  - npm run web"
+echo "  - npm run tsc"
 
 # Cleanup
 rm -f bootstrap.sh

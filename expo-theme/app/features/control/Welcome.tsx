@@ -16,12 +16,28 @@ export default function Welcome({
 }: StackNavigationProps<AuthRoutes, 'Welcome'>) {
   const { loginUser } = useAuth()
 
-  const handleUrl = async (url: string) => {
-    const supported = await Linking.canOpenURL(url)
-    if (supported) await Linking.openURL(url)
-    else console.log("Can't open URL: " + url)
+  const RenderLink = (item: { name: string; link: string; size?: number }) => {
+    const handleUrl = async (url: string) => {
+      const supported = await Linking.canOpenURL(url)
+      if (supported) await Linking.openURL(url)
+      else console.log("Can't open URL: " + url)
+    }
+    return (
+      <TouchableOpacity onPress={() => handleUrl(item.link)}>
+        <IText
+          color={IColors.infoDark}
+          textTransform='capitalize'
+          size={item.size || 14}
+          style={{
+            marginBottom: -5,
+            textDecorationLine: 'underline',
+          }}
+        >
+          {item.name}
+        </IText>
+      </TouchableOpacity>
+    )
   }
-
   return (
     <RootContainer title='Welcome screen' scroll>
       <View style={styles.container}>
@@ -44,18 +60,7 @@ export default function Welcome({
 
         <View style={styles.links}>
           {links.map((item, index) => (
-            <TouchableOpacity
-              key={String(index)}
-              onPress={() => handleUrl(item.link)}
-            >
-              <IText
-                textTransform='capitalize'
-                color={IColors.infoDark}
-                style={styles.link}
-              >
-                {item.label}
-              </IText>
-            </TouchableOpacity>
+            <RenderLink key={String(index)} {...item} />
           ))}
         </View>
 
@@ -78,35 +83,25 @@ export default function Welcome({
           {'\n'}- Zustand global state management
           {'\n'}- Integrated App Monitoring (Sentry)
         </IText>
-        <TouchableOpacity
-          onPress={() => handleUrl('https://github.com/MrVal042/app-template')}
-        >
-          <IText>
-            ⭐ Star the project on{' '}
-            <IText color={IColors.infoDark} style={styles.link}>
-              GitHub
-            </IText>
-          </IText>
-        </TouchableOpacity>
-
-        <IText size={12}>
+        <IText>
+          ⭐ Star the project on{' '}
+          <RenderLink
+            link={'https://github.com/MrVal042/app-template'}
+            name='Github'
+          />
+        </IText>
+        <IText>
           Tap <IText variant='bold'>Explore Demo</IText> to log in as a sample
           user.
         </IText>
-        <TouchableOpacity
-          onPress={() =>
-            handleUrl(
-              'vscode://file/full/path/to/app/features/control/Welcome.tsx'
-            )
-          }
-        >
-          <IText textAlign='center'>
-            ✏️ Edit this screen at{' '}
-            <IText color={IColors.infoDark} style={styles.link}>
-              app/features/control/Welcome.tsx
-            </IText>
-          </IText>
-        </TouchableOpacity>
+        <IText>
+          ✏️ Edit this screen at{' '}
+          <RenderLink
+            size={12}
+            link='vscode://file/full/path/to/app/features/control/Welcome.tsx'
+            name='app/features/control/Welcome.tsx'
+          />
+        </IText>
 
         <View style={{ marginTop: 'auto', gap: 20 }}>
           <IButton
@@ -117,20 +112,29 @@ export default function Welcome({
 
           <IButton
             label='Explore Demo'
+            marginBottom={-10}
             bgColor={IColors.successDark}
             icon={{ name: 'home', size: 18 }}
-            marginBottom={-10}
             onPress={() => loginUser({ ...users[1] }, null)}
           />
 
-          <TouchableOpacity onPress={() => handleUrl('https://x.com/MrVal042')}>
-            <IText textAlign='center' size={12}>
-              Made by <IText variant='bold'>MrVal042</IText> — follow on{' '}
-              <IText color={IColors.infoDark} style={styles.link}>
-                X (Twitter)
-              </IText>
-            </IText>
-          </TouchableOpacity>
+          <IText textAlign='center' size={13}>
+            Made by{' '}
+            <IText size={13} variant='bold'>
+              MrVal042
+            </IText>{' '}
+            — follow on{' '}
+            <RenderLink
+              size={12}
+              name='x(Twitter)'
+              link='https://x.com/vasogwaze'
+            />{' '}
+            |{' '}
+            <RenderLink
+              name='LinkedIn'
+              link='https://www.linkedin.com/in/valentine-asogwa-030272212/'
+            />
+          </IText>
         </View>
       </View>
     </RootContainer>
@@ -139,16 +143,16 @@ export default function Welcome({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    gap: 20,
     marginTop: 10,
     width: '100%',
+    flex: 1,
+    gap: 20,
   },
   logo: {
-    height: 90,
-    width: '50%',
+    height: 120,
+    width: '30%',
     borderWidth: 1,
-    borderRadius: 99,
+    borderRadius: 25,
     alignSelf: 'center',
     borderColor: IColors.activeColorDark,
   },
@@ -158,43 +162,39 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
   },
-  link: {
-    color: IColors.infoDark,
-    textDecorationLine: 'underline',
-  },
 })
 
 const links = [
-  { label: 'Expo', link: 'https://expo.dev/' },
+  { name: 'Expo', link: 'https://expo.dev/' },
+  { name: 'React Navigation', link: 'https://reactnavigation.org/' },
   {
-    label: 'Reanimated',
+    name: 'Reanimated',
     link: 'https://docs.expo.dev/versions/latest/sdk/reanimated/',
   },
-  { label: 'React Hook Form', link: 'https://react-hook-form.com/' },
-  { label: 'Yup Validator', link: 'https://github.com/jquense/yup' },
-  { label: 'Dayjs', link: 'https://day.js.org/' },
-  { label: 'Vector Icons', link: 'https://icons.expo.fyi/' },
+  { name: 'React Hook Form', link: 'https://react-hook-form.com/' },
+  { name: 'Yup Validator', link: 'https://github.com/jquense/yup' },
+  { name: 'Vector Icons', link: 'https://icons.expo.fyi/' },
   {
-    label: 'Bottom Sheet',
+    name: 'Bottom Sheet',
     link: 'https://www.npmjs.com/package/@gorhom/bottom-sheet',
   },
-  { label: 'Axios', link: 'https://axios-http.com/docs/intro' },
   {
-    label: 'Datetime Picker',
-    link: 'https://www.npmjs.com/package/react-native-modal-datetime-picker',
-  },
-  {
-    label: 'OTP Entry',
-    link: 'https://www.npmjs.com/package/react-native-otp-entry',
-  },
-  {
-    label: 'Secure Store',
+    name: 'Secure Store',
     link: 'https://docs.expo.dev/versions/latest/sdk/securestore/',
   },
   {
-    label: 'Async Storage',
+    name: 'OTP Entry',
+    link: 'https://www.npmjs.com/package/react-native-otp-entry',
+  },
+  {
+    name: 'Datetime Picker',
+    link: 'https://www.npmjs.com/package/react-native-modal-datetime-picker',
+  },
+  { name: 'Zustand', link: 'https://github.com/pmndrs/zustand' },
+  { name: 'Dayjs', link: 'https://day.js.org/' },
+  { name: 'Axios', link: 'https://axios-http.com/docs/intro' },
+  {
+    name: 'Async Storage',
     link: 'https://react-native-async-storage.github.io/async-storage/docs/install/',
   },
-  { label: 'Zustand', link: 'https://github.com/pmndrs/zustand' },
-  { label: 'React Navigation', link: 'https://reactnavigation.org/' },
 ]
